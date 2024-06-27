@@ -1,0 +1,1 @@
+// clears the entire sheet, except for headers (aka first row)

@@ -1,3 +1,7 @@
+/**
+ * This function loads the slash commands in the SlashCommands folder
+ * @param {client} client The discord client
+ */
 function loadSlashCommands(client) {
     const fs = require("fs");
 

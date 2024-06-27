@@ -1,6 +1,6 @@
 # ppclanraidscheduler
 
-A discord bot that I made in my own spare time to facilitate raid timings with my Destiny 2 clan, using Google Sheets as a database.
+A discord bot that I made in my own spare time to facilitate raid timings with my Destiny 2 clan, that reads and writes to Google Sheets as a database.
 
 ## Tech Stack and APIs Used
 <div>
@@ -33,7 +33,7 @@ At first, I wanted to make the bot communicate with Firestore or MongoDB's APIs.
  
 Go to command prompt, navigate to the directory you want, and type `git clone https://github.com/saffronrust/ppclanraidscheduler.git`
 
-4. Install dependencies
+2. Install dependencies
 
 Type `npm install` in the same directory
 
@@ -59,6 +59,7 @@ Legend:
 - **Watch [this video](http://www.youtube.com/watch?v=PFJNJQCU_lo) on how to get the `credentials.json` file**
 
 4. Start the bot
+
 Type `node .` in the main directory
 
 ## Future Plans

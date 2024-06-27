@@ -11,6 +11,14 @@ A discord bot that I made in my own spare time to facilitate raid timings with m
 <img src = "http://img.shields.io/badge/Discord Bot API-5865F2?style=flat-square&logo=discord&logoColor=black" alt = "Discord Bot API">
 </div>
 
+## Functions
+- `/add` Adds a user to the sheet with their timings for the week
+- `/check` Checks the sheet for an available raid timing, condition is met when 6 or more people register the same timeslot
+- `/remove` Removes a user from the sheet
+- `/update` Updates a user's timings
+- `/removeall` Clears the entire sheet, ready to be used for next week *(IN PROGRESS!)*
+- `/help` Lists all the functions available in the bot
+
 ## Motivation
 In our friend group, we schedule weekly sessions to play Destiny 2 raids. We typically use Google Sheets to input our timings. However, as our clan grew, it became increasingly unwieldy to scroll through the Google Sheets. Thus, I was inspired to make this discord bot.
 
@@ -62,8 +70,14 @@ Legend:
 
 Type `node .` in the main directory
 
+5. Have fun!
+
 ## Future Plans
-As of now, I have no plans to improve upon this bot. This was just a personal project for my friend group. However, I'm thinking of adding more functionalities and aesthetics to the bot, for example, color-coding the timings and pinging the relevant users when a raid timing has been found. Also I should probably add documentation.
+As of now, I have no concrete plans to improve upon this bot. This was just a personal project for my friend group. However, I'm thinking of adding more functionalities and aesthetics to the bot, for example, color-coding the timings and pinging the relevant users when a raid timing has been found.
+
+I should probably add documentation to explain some of the spaghetti code I did.
+
+Perhaps I'll deploy the bot for a month and see how it goes.
 
 ## Acknowledgements
 Huge, huge thanks to [Simpleboy353's SheetsBot](https://github.com/Simpleboy353/SheetsBot) for the foundation of this bot. I wouldn't have known how to start using the Google Sheets API without building upon his bot. Please [buy him a coffee](https://buymeacoffee.com/simpleboy353) if you liked this bot.

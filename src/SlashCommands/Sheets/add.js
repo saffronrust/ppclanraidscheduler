@@ -1,4 +1,8 @@
 const { MessageEmbed } = require("discord.js");
+const { isUserInSheet } = require("../../utility/isUserInSheet");
+
+const { successEmbedFunc } = require("../../utility/embeds/successEmbed");
+const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 
 module.exports = {
 	name: "add",
@@ -66,20 +70,18 @@ module.exports = {
 
 		const username = await user.username;
 
-		const rows = await client.googleSheets.values.get({
-			auth: client.auth,
-			spreadsheetId: client.sheetId,
-			range: "Sheet1!A:A"
-		});
+		if (isUserInSheet(client, username)) {
 
-		const data = rows.data.values.find(row => row[0] === username);
+			///////////////////////////////////////////////////////////////////////////
+			// TODO: Create a separate folder to display success and failure embeds ///
+			///////////////////////////////////////////////////////////////////////////
 
-		if (data) {
-			const failureEmbed = new MessageEmbed().setColor("RED")
-			failureEmbed.setDescription(`User has already been added to the list`)
+			const failureEmbed = failureEmbedFunc(`User has already been added to the list`)
+			// const failureEmbed = new MessageEmbed().setColor("RED")
+			// failureEmbed.setDescription(`User has already been added to the list`)
 			console.log("User", username, "already added")
 			return interaction.reply({ embeds: [failureEmbed] })
-		} else if (!data) {
+		} else if (!isUserInSheet(client, username)) {
 			await client.googleSheets.values.append({
 				auth: client.auth,
 				spreadsheetId: client.sheetId,
@@ -92,8 +94,9 @@ module.exports = {
 				}
 			});
 
-			const successEmbed = new MessageEmbed().setColor("GREEN")
-			successEmbed.setDescription(`User has been added to the list`)
+			const successEmbed = successEmbedFunc(`User has been added to the list`)
+			// const successEmbed = new MessageEmbed().setColor("GREEN")
+			// successEmbed.setDescription(`User has been added to the list`)
 			console.log("User", username, "successfully added")
 			return interaction.reply({ embeds: [successEmbed] })
 		}

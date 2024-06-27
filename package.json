@@ -1,12 +1,12 @@
 {
-  "name": "discord-sheets",
+  "name": "ppclanraidscheduler",
   "version": "1.0.0",
-  "description": "A bot that uses google sheets to store users",
+  "description": "A discord bot that I made in my own spare time to facilitate raid timings with my Destiny 2 clan, that reads and writes to Google Sheets as a database.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Simpleboy353",
+  "author": "saffronrust",
   "license": "GPL-3.0",
   "dependencies": {
     "ascii-table": "^0.0.9",

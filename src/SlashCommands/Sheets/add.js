@@ -4,10 +4,18 @@ const { isUserInSheet } = require("../../utility/isUserInSheet");
 const { successEmbedFunc } = require("../../utility/embeds/successEmbed");
 const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 
+/**
+ * This function adds a user to the sheet with their timings for the week
+ * They will input their discord username and the timeslots for each day of the week
+ * 4 options are available for each day: A for afternoon, B for night, C for all day, and D for not available
+ * They can only input their timings once, if they try to input it again, they will get an error message
+ * Once they have input their timings, the sheet will be automatically updated
+ */
 module.exports = {
 	name: "add",
 	description: "Adds a user to the sheet with their timings for the week",
 	userPerms: ["ADMINISTRATOR"],
+	// i wish i could make this less messy, but this was my best attempt
 	options: [
 		{
 			name: "user",
@@ -70,6 +78,7 @@ module.exports = {
 
 		const username = await user.username;
 
+		// if the user is already in the sheet, return an error message
 		if (isUserInSheet(client, username)) {
 
 			///////////////////////////////////////////////////////////////////////////
@@ -82,6 +91,8 @@ module.exports = {
 			console.log("User", username, "already added")
 			return interaction.reply({ embeds: [failureEmbed] })
 		} else if (!isUserInSheet(client, username)) {
+			// if the user is not in the sheet, add the user to the sheet
+
 			await client.googleSheets.values.append({
 				auth: client.auth,
 				spreadsheetId: client.sheetId,

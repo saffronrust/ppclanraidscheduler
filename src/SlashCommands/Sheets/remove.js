@@ -1,5 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 
+/**
+ * This function removes a user from the sheet
+ * They will input the user they want to remove from the sheet
+ * If the user is not in the sheet, they will get an error message
+ * Once they have removed the user, the sheet will be automatically updated
+ * I should probably run an admin check here to make sure no one abuses this
+ */
 module.exports = {
 	name: "remove",
 	description: "Removes a user from the sheet",
@@ -24,6 +31,7 @@ module.exports = {
 
 		const data = rows.data.values.find(row => row[0] === username);
 
+		// if the user is not in the list, return an error message
 		if (!data) {
 			const failureEmbed = new MessageEmbed().setColor("RED")
 			console.log("User", username, "is not in the list")
@@ -31,8 +39,10 @@ module.exports = {
 			return interaction.reply({ embeds: [failureEmbed] })
 		} 
 
+		// else, continue with the deletion process
 		let toDeleteRow;
 
+		// find the row to delete based on the username matching
 		for (let i = 0; i < rows.data.values.length; i++) {
 			const row = rows.data.values[i];
 			if (row[0] === username) {

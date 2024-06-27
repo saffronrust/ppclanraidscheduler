@@ -1,5 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 
+/**
+ * This function updates a user's timings in the sheet
+ * They will input their discord username and the timeslots for each day of the week
+ * 4 options are available for each day: A for afternoon, B for night, C for all day, and D for not available
+ * If the user is not in the sheet, they will get an error message
+ * Once they have updated their timings, the sheet will be automatically updated
+ * This function essentially combines both the add and remove functions
+ */
 module.exports = {
 	name: "update",
 	description: "Updates a user's timings",

@@ -1,6 +1,12 @@
 const { MessageEmbed } = require("discord.js");
 const { dayChecker } = require("../../handlers/dayChecker");
 
+/**
+ * This function checks the sheet for an available raid timing, condition is met when 6 or more people register the same timeslot
+ * The command calls the dayChecker function for each day of the week to check if there are enough people available to play
+ * If there are enough people available, dayChecker will return the array containing the timeslot and the users available
+ * If there are no suitable timeslots available (i.e. dayChecker returns 0), the command will return an error message
+ */
 module.exports = {
 	name: "check",
 	description: "Checks the sheet for an available raid timing, condition is met when 6 or more people register the same timeslot",
@@ -69,9 +75,12 @@ module.exports = {
 
 		const userArray = [];
 		for (let i = 0; i < resultArray.length; i++) {
-			if (resultArray[i] != 0) {
 
+			// if an element of resultArray is not 0, it means there are enough people available to play
+			if (resultArray[i] != 0) {
+				// index from 2 because thats when the usernames start
 				for (let j = 2; j < resultArray[i].length; j++) {
+					// this creates an array of the available people
 					userArray.push(resultArray[i][j]);
 				}
 				const embed = new MessageEmbed().setColor("GREEN")
@@ -80,6 +89,9 @@ module.exports = {
 				return interaction.reply({ embeds: [embed] })
 			}
 		}
+
+		// if we come to here, that means all the days have been checked and no suitable time for raid has been found
+		// i.e. all the elements of resultArray are 0
 		const embed = new MessageEmbed().setColor("RED")
 		console.log("Raid timing not found")
 		embed.setDescription(`No suitable time for raid found`)

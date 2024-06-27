@@ -1,5 +1,8 @@
 const { MessageEmbed } = require("discord.js")
 
+/**
+ * This function is used to list all the functions available in the bot
+ */
 module.exports = {
 	name: "help",
 	description: 'Lists all the functions available in the bot',

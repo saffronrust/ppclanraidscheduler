@@ -6,7 +6,7 @@ const { loadEvents } = require("../src/handlers/loadEvents");
 const { loadSlashCommands } = require("../src/handlers/loadSlashCommands");
 const { botToken, spreadsheetId } = require("../src/jsons/config.json");
 
-// Declaring our Discord Client
+// Declaring the discord client
 const client = new Client({
 	allowedMentions: { parse: ["users", "roles"] },
 	intents: [
@@ -22,7 +22,7 @@ const client = new Client({
 	],
 });
 
-// Google Sheets Authorisation Stuff
+// Google Sheets auth
 const auth = new google.auth.GoogleAuth({
 	keyFile: "src/jsons/credentials.json",
 	scopes: "https://www.googleapis.com/auth/spreadsheets"
@@ -30,18 +30,17 @@ const auth = new google.auth.GoogleAuth({
 const sheetClient = auth.getClient();
 const googleSheets = google.sheets({ version: "v4", auth: sheetClient });
 
-// Stuff that will be very useful in our project
 client.sheetCommands = fs.readdirSync("./src/SlashCommands/Sheets/")
 client.slash = new Collection();
 client.auth = auth;
 client.sheetId = spreadsheetId;
 client.googleSheets = googleSheets.spreadsheets;
 
-// Declaring Slash Command and Events
+// Declaring slash commands and events
 loadEvents(client);
 loadSlashCommands(client);
 
-// Error Handling
+// error handling
 process.on("uncaughtException", (err) => {
 	console.log("Uncaught Exception: " + err);
   
@@ -68,7 +67,8 @@ process.on("unhandledRejection", (reason, promise) => {
 	.setColor("RED")
 	//client.channels.cache.get(error_logs).send({ embeds: [rejectionembed] })
 });
-  
+
+// Login to the bot
 client.login(botToken).then(() => {
 	console.log(
 	  chalk.bgBlueBright.black(

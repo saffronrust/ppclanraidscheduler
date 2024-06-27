@@ -1,3 +1,10 @@
+/**
+ * This function checks if a user is in the google sheet
+ * It combs through the entire user column for a matching username
+ * @param {client} client 
+ * @param {string} username 
+ * @returns true if the user is in the sheet, false otherwise
+ */
 async function isUserInSheet(client, username) {
     const rows = await client.googleSheets.values.get({
         auth: client.auth,

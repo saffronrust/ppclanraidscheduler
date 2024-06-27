@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js")
 
 module.exports = {
 	name: "help",
-	description: 'Shows the help page!',
+	description: 'Lists all the functions available in the bot',
 	options: null,
 	run: async(client, interaction, args)=>{
 

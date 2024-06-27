@@ -2,7 +2,7 @@ const { MessageEmbed } = require("discord.js");
 
 module.exports = {
 	name: "update",
-	description: "Updates a user in the sheet",
+	description: "Updates a user's timings",
 	userPerms: ["ADMINISTRATOR"],
 	options: [
 		{

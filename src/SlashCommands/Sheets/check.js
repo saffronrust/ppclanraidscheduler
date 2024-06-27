@@ -3,7 +3,7 @@ const { dayChecker } = require("../../handlers/dayChecker");
 
 module.exports = {
 	name: "check",
-	description: "Checks for an available raid time",
+	description: "Checks the sheet for an available raid timing, condition is met when 6 or more people register the same timeslot",
 	userPerms: ["ADMINISTRATOR"],
 	options: null,
 	run: async(client, interaction, args) => {

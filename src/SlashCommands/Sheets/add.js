@@ -6,7 +6,7 @@ const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 
 module.exports = {
 	name: "add",
-	description: "Adds a user to the spreadsheet",
+	description: "Adds a user to the sheet with their timings for the week",
 	userPerms: ["ADMINISTRATOR"],
 	options: [
 		{

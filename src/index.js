@@ -61,9 +61,8 @@ process.on("unhandledRejection", (reason, promise) => {
 	);
   
 	 const rejectionembed = new MessageEmbed()
-	.setTitle("Unhandled Promise Rejection")
-	.addField("Promise", `${promise}`)
-	.addField("Reason", `${reason.message}`)
+	.setTitle("An Error Occurred")
+	.addField("What To Do:", "Please try to run the command again. If the error persists, try another command first")
 	.setColor("RED")
 	client.channels.cache.get(error_logs).send({ embeds: [rejectionembed] })
 });

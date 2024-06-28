@@ -1,4 +1,5 @@
-const { MessageEmbed } = require("discord.js");
+const { successEmbedFunc } = require("../../utility/embeds/successEmbed");
+const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 
 /**
  * This function updates a user's timings in the sheet
@@ -123,15 +124,13 @@ module.exports = {
 				}
 			});
 
-			const successEmbed = new MessageEmbed().setColor("GREEN")
 			console.log("User", username, "successfully updated")
-			successEmbed.setDescription(`User has been updated`)
-			return interaction.reply({ embeds: [successEmbed] })
+			const successEmbed = successEmbedFunc(`User has been updated`)
+			await interaction.reply({ embeds: [successEmbed] })
 		} else if (!data) {
-			const failureEmbed = new MessageEmbed().setColor("RED")
 			console.log("User", username, "is not in the list")
-			failureEmbed.setDescription(`User is not in the list`)
-			return interaction.reply({ embeds: [failureEmbed] })
+			const failureEmbed = failureEmbedFunc(`User is not in the list`)
+			await interaction.reply({ embeds: [failureEmbed] })
 		}
 	}
 }

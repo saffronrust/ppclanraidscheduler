@@ -1,4 +1,5 @@
 const { successEmbedFunc } = require("../../utility/embeds/successEmbed");
+const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 
 /**
  * This function removes all users from the sheet by deleting all rows except the first one, which contains the headers

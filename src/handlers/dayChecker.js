@@ -31,26 +31,26 @@ function dayChecker(columns, userColumns) {
 
     // loop through the array and userArray to check the timeslot and the users available
     for (let i = 0; i < array.length; i++) {
-        if (array[i] === "A" || array[i] === "C") {
+        if (array[i] === "A" || array[i] === "C" || array[i] === "a" || array[i] === "c") {
             resultAfternoon[0]++;
             resultAfternoon.push(userArray[i]);
         }
-        if (array[i] === "B" || array[i] === "C") {
+        if (array[i] === "B" || array[i] === "C" || array[i] === "b" || array[i] === "c") {
             resultNight[0]++;
             resultNight.push(userArray[i]);
         }
-        if (array[i] === "C") {
+        if (array[i] === "C" || array[i] === "c") {
             resultAllDay[0]++;
             resultAllDay.push(userArray[i]);
         }
     }
 
     // return the result array if it has enough people
-    if (resultAllDay[0] >= 2) {
+    if (resultAllDay[0] >= 6) {
         return resultAllDay;
-    } else if (resultAfternoon[0] >= 2) {
+    } else if (resultAfternoon[0] >= 6) {
         return resultAfternoon;
-    } else if (resultNight[0] >= 2) {
+    } else if (resultNight[0] >= 6) {
         return resultNight;
     } else {
         return 0;

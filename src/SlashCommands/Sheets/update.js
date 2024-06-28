@@ -12,14 +12,13 @@ const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 module.exports = {
 	name: "update",
 	description: "Updates a user's timings",
-	userPerms: ["ADMINISTRATOR"],
 	options: [
-		{
-			name: "user",
-			description: "The user to update in the spreadsheet",
-			type: "USER",
-			required: true,
-		},
+		// {
+		// 	name: "user",
+		// 	description: "The user to update in the spreadsheet",
+		// 	type: "USER",
+		// 	required: true,
+		// },
 		{
 			name: "monday",
 			description: "Put A for afternoon, B for night, C for all day, and D for not available",
@@ -65,7 +64,17 @@ module.exports = {
 	],
     run: async (client, interaction, args) => {
         try {
-            const user = interaction.options.getUser("user");
+
+			// // check if the user is updating their own timings
+			// if (interaction.options.getUser("user").id != interaction.user.id) {
+			// 	console.log("User tried to update other people's timings");
+			// 	const failureEmbed = failureEmbedFunc("You can only update your own timings");
+			// 	await interaction.reply({ embeds: [failureEmbed] });
+			// 	return;
+			// }
+
+            // const user = interaction.options.getUser("user");
+			const user = interaction.user;
             const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
             const timings = days.map(day => interaction.options.getString(day));
             const username = user.username;

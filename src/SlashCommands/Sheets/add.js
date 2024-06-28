@@ -13,15 +13,14 @@ const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 module.exports = {
 	name: "add",
 	description: "Adds a user to the sheet with their timings for the week",
-	userPerms: ["ADMINISTRATOR"],
 	// i wish i could make this less messy, but this was my best attempt
 	options: [
-		{
-			name: "user",
-			description: "The user to add to the spreadsheet",
-			type: "USER",
-			required: true,
-		},
+		// {
+		// 	name: "user",
+		// 	description: "The user to add to the spreadsheet",
+		// 	type: "USER",
+		// 	required: true,
+		// },
 		{
 			name: "monday",
 			description: "Put A for afternoon, B for night, C for all day, and D for not available",
@@ -67,7 +66,17 @@ module.exports = {
 	],
     run: async (client, interaction, args) => {
         try {
-            const user = interaction.options.getUser("user");
+
+			// // check if the user is adding their own timings
+			// if (interaction.options.getUser("user").id != interaction.user.id) {
+			// 	console.log("User tried to add other people's timings");
+			// 	const failureEmbed = failureEmbedFunc("You can only add your own timings");
+			// 	await interaction.reply({ embeds: [failureEmbed] });
+			// 	return;
+			// }
+
+            // const user = interaction.options.getUser("user");
+			const user = interaction.user;
             const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
             const timings = days.map(day => interaction.options.getString(day));
 

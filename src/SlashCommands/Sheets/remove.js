@@ -1,4 +1,5 @@
-const { MessageEmbed } = require("discord.js");
+const { successEmbedFunc } = require("../../utility/embeds/successEmbed");
+const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 
 /**
  * This function removes a user from the sheet
@@ -33,10 +34,9 @@ module.exports = {
 
 		// if the user is not in the list, return an error message
 		if (!data) {
-			const failureEmbed = new MessageEmbed().setColor("RED")
 			console.log("User", username, "is not in the list")
-			failureEmbed.setDescription(`User is not in the list`)
-			return interaction.reply({ embeds: [failureEmbed] })
+			const failureEmbed = failureEmbedFunc(`User is not in the list`)
+			await interaction.reply({ embeds: [failureEmbed] })
 		} 
 
 		// else, continue with the deletion process
@@ -69,9 +69,8 @@ module.exports = {
 			}
 		}).catch(console.error)
 
-		const successEmbed = new MessageEmbed().setColor("GREEN")
 		console.log("User", username, "successfully removed")
-		successEmbed.setDescription(`User has been removed from the list`)
-		return interaction.reply({ embeds: [successEmbed] })
+		const successEmbed = successEmbedFunc(`User has been removed from the list`)
+		await interaction.reply({ embeds: [successEmbed] })
 	}
 }

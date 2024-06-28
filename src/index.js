@@ -62,7 +62,7 @@ process.on("unhandledRejection", (reason, promise) => {
   
 	 const rejectionembed = new MessageEmbed()
 	.setTitle("An Error Occurred")
-	.addField("What To Do:", "Please try to run the command again. If the error persists, try another command first")
+	.addField("What To Do:", "Please try to run the command again. If the error persists, try another command or /removeall")
 	.setColor("RED")
 	client.channels.cache.get(error_logs).send({ embeds: [rejectionembed] })
 });

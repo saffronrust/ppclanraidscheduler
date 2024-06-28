@@ -13,51 +13,45 @@ module.exports = {
 	name: "update",
 	description: "Updates a user's timings",
 	options: [
-		// {
-		// 	name: "user",
-		// 	description: "The user to update in the spreadsheet",
-		// 	type: "USER",
-		// 	required: true,
-		// },
 		{
 			name: "monday",
-			description: "Put A for afternoon, B for night, C for all day, and D for not available",
+			description: "Put 'a' for afternoon, 'b' for night, 'c' for all day, and 'd' for not available",
 			type: "STRING",
 			required: true,
 		},
 		{
 			name: "tuesday",
-			description: "Put A for afternoon, B for night, C for all day, and D for not available",
+			description: "Put 'a' for afternoon, 'b' for night, 'c' for all day, and 'd' for not available",
 			type: "STRING",
 			required: true,
 		},
 		{
 			name: "wednesday",
-			description: "Put A for afternoon, B for night, C for all day, and D for not available",
+			description: "Put 'a' for afternoon, 'b' for night, 'c' for all day, and 'd' for not available",
 			type: "STRING",
 			required: true,
 		},
 		{
 			name: "thursday",
-			description: "Put A for afternoon, B for night, C for all day, and D for not available",
+			description: "Put 'a' for afternoon, 'b' for night, 'c' for all day, and 'd' for not available",
 			type: "STRING",
 			required: true,
 		},
 		{
 			name: "friday",
-			description: "Put A for afternoon, B for night, C for all day, and D for not available",
+			description: "Put 'a' for afternoon, 'b' for night, 'c' for all day, and 'd' for not available",
 			type: "STRING",
 			required: true,
 		},
 		{
 			name: "saturday",
-			description: "Put A for afternoon, B for night, C for all day, and D for not available",
+			description: "Put 'a' for afternoon, 'b' for night, 'c' for all day, and 'd' for not available",
 			type: "STRING",
 			required: true,
 		},
 		{
 			name: "sunday",
-			description: "Put A for afternoon, B for night, C for all day, and D for not available",
+			description: "Put 'a' for afternoon, 'b' for night, 'c' for all day, and 'd' for not available",
 			type: "STRING",
 			required: true,
 		}

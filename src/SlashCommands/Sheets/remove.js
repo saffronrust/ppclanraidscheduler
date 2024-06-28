@@ -11,18 +11,10 @@ const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 module.exports = {
 	name: "remove",
 	description: "Removes a user from the sheet",
-	userPerms: ["ADMINISTRATOR"],
-	options: [
-		{
-			name: "user",
-			description: "The user to be removed from the sheet",
-			type: "USER",
-			required: true
-		}
-	],
+	options: null,
     run: async (client, interaction, args) => {
         try {
-            const user = interaction.options.getUser("user");
+            const user = interaction.user;
             const username = user.username;
 
             const rows = await client.googleSheets.values.get({

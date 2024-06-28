@@ -16,7 +16,7 @@ A discord bot that I made in my own spare time to facilitate raid timings with m
 - `/check` Checks the sheet for an available raid timing, condition is met when 6 or more people register the same timeslot
 - `/remove` Removes a user from the sheet
 - `/update` Updates a user's timings
-- `/removeall` Clears the entire sheet, ready to be used for next week *(IN PROGRESS!)*
+- `/removeall` Clears the entire sheet, ready to be used for next week
 - `/help` Lists all the functions available in the bot
 
 ## Motivation
@@ -81,6 +81,11 @@ Perhaps I'll deploy the bot for a month and see how it goes.
 
 ## Acknowledgements
 Huge, huge thanks to [Simpleboy353's SheetsBot](https://github.com/Simpleboy353/SheetsBot) for the foundation of this bot. I wouldn't have known how to start using the Google Sheets API without building upon his bot. Please [buy him a coffee](https://buymeacoffee.com/simpleboy353) if you liked this bot.
+
+## Known Bugs
+- `/check` sometimes fails to work
+
+Please try the command again. If the error persists, try another command or `/removeall` to clean the sheet.
 
 ## Additional Information
 License: GPL 3.0

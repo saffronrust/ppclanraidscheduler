@@ -11,7 +11,6 @@ const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 module.exports = {
     name: "check",
     description: "Checks the sheet for an available raid timing",
-    userPerms: ["ADMINISTRATOR"],
     options: null,
     run: async (client, interaction, args) => {
         try {

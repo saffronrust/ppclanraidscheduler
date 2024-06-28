@@ -4,7 +4,7 @@ const { google } = require('googleapis');
 const { Client, Collection, Intents, MessageEmbed } = require("discord.js");
 const { loadEvents } = require("../src/handlers/loadEvents");
 const { loadSlashCommands } = require("../src/handlers/loadSlashCommands");
-const { botToken, spreadsheetId } = require("../src/jsons/config.json");
+const { botToken, spreadsheetId, error_logs } = require("../src/jsons/config.json");
 
 // Declaring the discord client
 const client = new Client({
@@ -48,7 +48,7 @@ process.on("uncaughtException", (err) => {
 	.setTitle("Uncaught Exception")
 	.setDescription(`${err}`)
 	.setColor("RED")
-	//client.channels.cache.get(error_logs).send({ embeds: [exceptionembed] })
+	client.channels.cache.get(error_logs).send({ embeds: [exceptionembed] })
 	console.log(err);
   });
   
@@ -65,7 +65,7 @@ process.on("unhandledRejection", (reason, promise) => {
 	.addField("Promise", `${promise}`)
 	.addField("Reason", `${reason.message}`)
 	.setColor("RED")
-	//client.channels.cache.get(error_logs).send({ embeds: [rejectionembed] })
+	client.channels.cache.get(error_logs).send({ embeds: [rejectionembed] })
 });
 
 // Login to the bot

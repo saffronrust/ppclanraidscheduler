@@ -78,21 +78,14 @@ module.exports = {
 
 		const username = await user.username;
 
+		const userInSheet = await isUserInSheet(client, username);
 		// if the user is already in the sheet, return an error message
-		if (isUserInSheet(client, username)) {
-
-			///////////////////////////////////////////////////////////////////////////
-			// TODO: Create a separate folder to display success and failure embeds ///
-			///////////////////////////////////////////////////////////////////////////
-
-			const failureEmbed = failureEmbedFunc(`User has already been added to the list`)
-			// const failureEmbed = new MessageEmbed().setColor("RED")
-			// failureEmbed.setDescription(`User has already been added to the list`)
+		if (userInSheet) {
 			console.log("User", username, "already added")
-			return interaction.reply({ embeds: [failureEmbed] })
-		} else if (!isUserInSheet(client, username)) {
+			const failureEmbed = failureEmbedFunc(`User has already been added to the list`)
+			await interaction.reply({ embeds: [failureEmbed] })
+		} else {
 			// if the user is not in the sheet, add the user to the sheet
-
 			await client.googleSheets.values.append({
 				auth: client.auth,
 				spreadsheetId: client.sheetId,
@@ -105,11 +98,9 @@ module.exports = {
 				}
 			});
 
-			const successEmbed = successEmbedFunc(`User has been added to the list`)
-			// const successEmbed = new MessageEmbed().setColor("GREEN")
-			// successEmbed.setDescription(`User has been added to the list`)
 			console.log("User", username, "successfully added")
-			return interaction.reply({ embeds: [successEmbed] })
+			const successEmbed = successEmbedFunc(`User has been added to the list`)
+			await interaction.reply({ embeds: [successEmbed] })
 		}
 	}
 }

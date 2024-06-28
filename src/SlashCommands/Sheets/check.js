@@ -51,8 +51,8 @@ module.exports = {
 				// if not, that means there is a suitable timing, go through the checks array and find the first suitable time
                 for (let i = 0; i < checks.length; i++) {
                     if (checks[i] !== 0) {
-						// get the 2nd element onwards of the array, which contains the users available
-                        const userArray = checks[i].slice(2);
+						// get the 2nd element to the 7th element of the array, which contains the first 6 users available
+                        const userArray = checks[i].slice(2, 8);
 						console.log("Raid timing found");
                         const successEmbed = successEmbedFunc(`Raid is set for ${dayOfWeek[i]} at ${checks[i][1]} with the following users:\n ${userArray.join(", ")}`);
                         await interaction.reply({ embeds: [successEmbed] });

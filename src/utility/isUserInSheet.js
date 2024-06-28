@@ -14,8 +14,7 @@ async function isUserInSheet(client, username) {
 
     const data = rows.data.values.find(row => row[0] === username);
 
-    if (data) return true;
-    else return false;
+    return data;
 }
 
 module.exports = {

@@ -1,4 +1,3 @@
-const { MessageEmbed } = require("discord.js");
 const { isUserInSheet } = require("../../utility/isUserInSheet");
 
 const { successEmbedFunc } = require("../../utility/embeds/successEmbed");
@@ -66,41 +65,40 @@ module.exports = {
 			required: true,
 		}
 	],
-	run: async(client, interaction, args) => {
-		const user = await interaction.options.getUser("user");
-		const monday = await interaction.options.getString("monday");
-		const tuesday = await interaction.options.getString("tuesday");
-		const wednesday = await interaction.options.getString("wednesday");
-		const thursday = await interaction.options.getString("thursday");
-		const friday = await interaction.options.getString("friday");
-		const saturday = await interaction.options.getString("saturday");
-		const sunday = await interaction.options.getString("sunday");
+    run: async (client, interaction, args) => {
+        try {
+            const user = interaction.options.getUser("user");
+            const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+            const timings = days.map(day => interaction.options.getString(day));
 
-		const username = await user.username;
+            const username = user.username;
+            const userInSheet = await isUserInSheet(client, username);
 
-		const userInSheet = await isUserInSheet(client, username);
-		// if the user is already in the sheet, return an error message
-		if (userInSheet) {
-			console.log("User", username, "already added")
-			const failureEmbed = failureEmbedFunc(`User has already been added to the list`)
-			await interaction.reply({ embeds: [failureEmbed] })
-		} else {
-			// if the user is not in the sheet, add the user to the sheet
-			await client.googleSheets.values.append({
-				auth: client.auth,
-				spreadsheetId: client.sheetId,
-				range: "Sheet1!A:H",
-				valueInputOption: "USER_ENTERED",
-				resource: {
-					values: [
-						[username, monday, tuesday, wednesday, thursday, friday, saturday, sunday]
-					]
-				}
-			});
+			// if user is in sheet, send failure embed
+            if (userInSheet) {
+                console.log("User", username, "already added");
+                const failureEmbed = failureEmbedFunc("User has already been added to the list");
+                await interaction.reply({ embeds: [failureEmbed] });
+            } else {
+				// if user not in sheet, input their username and timings into a row at the sheet
+                await client.googleSheets.values.append({
+                    auth: client.auth,
+                    spreadsheetId: client.sheetId,
+                    range: "Sheet1!A:H",
+                    valueInputOption: "USER_ENTERED",
+                    resource: {
+                        values: [[username, ...timings]]
+                    }
+                });
 
-			console.log("User", username, "successfully added")
-			const successEmbed = successEmbedFunc(`User has been added to the list`)
-			await interaction.reply({ embeds: [successEmbed] })
-		}
-	}
+                console.log("User", username, "successfully added");
+                const successEmbed = successEmbedFunc("User has been added to the list");
+                await interaction.reply({ embeds: [successEmbed] });
+            }
+        } catch (error) {
+            console.error("Error adding user: ", error);
+            const failureEmbed = failureEmbedFunc("An error occurred while adding the user.");
+            await interaction.reply({ embeds: [failureEmbed] });
+        }
+    }
 }

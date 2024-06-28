@@ -63,74 +63,68 @@ module.exports = {
 			required: true,
 		}
 	],
-	run: async(client, interaction, args) => {
-		const user = await interaction.options.getUser("user");
-		const monday = await interaction.options.getString("monday");
-		const tuesday = await interaction.options.getString("tuesday");
-		const wednesday = await interaction.options.getString("wednesday");
-		const thursday = await interaction.options.getString("thursday");
-		const friday = await interaction.options.getString("friday");
-		const saturday = await interaction.options.getString("saturday");
-		const sunday = await interaction.options.getString("sunday");
+    run: async (client, interaction, args) => {
+        try {
+            const user = interaction.options.getUser("user");
+            const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
+            const timings = days.map(day => interaction.options.getString(day));
+            const username = user.username;
 
-		const username = await user.username;
+            const rows = await client.googleSheets.values.get({
+                auth: client.auth,
+                spreadsheetId: client.sheetId,
+                range: "Sheet1!A:A"
+            });
 
-		const rows = await client.googleSheets.values.get({
-			auth: client.auth,
-			spreadsheetId: client.sheetId,
-			range: "Sheet1!A:A"
-		});
+            const rowIndex = rows.data.values.findIndex(row => row[0] === username);
 
-		const data = rows.data.values.find(row => row[0] === username);
+			// user not in sheet, send failure embed
+            if (rowIndex === -1) {
+                console.log("User", username, "is not in the list");
+                const failureEmbed = failureEmbedFunc("User is not in the list");
+                await interaction.reply({ embeds: [failureEmbed] });
+                return;
+            }
 
-		if (data) {
-			let toDeleteRow;
+			// delete the original row
+            await client.googleSheets.batchUpdate({
+                auth: client.auth,
+                spreadsheetId: client.sheetId,
+                resource: {
+                    requests: [
+                        {
+                            deleteDimension: {
+                                range: {
+                                    sheetId: 0,
+                                    dimension: "ROWS",
+                                    startIndex: rowIndex,
+                                    endIndex: rowIndex + 1
+                                }
+                            }
+                        }
+                    ]
+                }
+            });
 
-			for (let i = 0; i < rows.data.values.length; i++) {
-				const row = rows.data.values[i];
-				if (row[0] === username) {
-					toDeleteRow = i;
-				}
-			}
-	
-			await client.googleSheets.batchUpdate({
-				auth: client.auth,
-				spreadsheetId: client.sheetId,
-				resource: {
-						"requests": [
-						{
-							"deleteDimension": {
-								"range": {
-									"sheetId": 0,
-									"dimension": "ROWS",
-									"startIndex": toDeleteRow,
-									"endIndex": toDeleteRow + 1,
-								},
-							}
-						}
-					]
-				}
-			}).catch(console.error)
+			// add the updated row
+            await client.googleSheets.values.append({
+                auth: client.auth,
+                spreadsheetId: client.sheetId,
+                range: "Sheet1!A:H",
+                valueInputOption: "USER_ENTERED",
+                resource: {
+                    values: [[username, ...timings]]
+                }
+            });
 
-			await client.googleSheets.values.append({
-				auth: client.auth,
-				spreadsheetId: client.sheetId,
-				range: "Sheet1!A:H",
-				valueInputOption: "USER_ENTERED",
-				resource: {
-					values: [
-						[username, monday, tuesday, wednesday, thursday, friday, saturday, sunday]
-					]
-				}
-			});
+            console.log("User", username, "successfully updated");
+            const successEmbed = successEmbedFunc("User has been updated");
+            await interaction.reply({ embeds: [successEmbed] });
 
-			console.log("User", username, "successfully updated")
-			const successEmbed = successEmbedFunc(`User has been updated`)
-			await interaction.reply({ embeds: [successEmbed] })
-		} else if (!data) {
-			console.log("User", username, "is not in the list")
-			const failureEmbed = failureEmbedFunc(`User is not in the list`)
-			await interaction.reply({ embeds: [failureEmbed] })
-		}
-	}
+        } catch (error) {
+            console.error("Error updating user: ", error);
+            const failureEmbed = failureEmbedFunc("An error occurred while updating the user.");
+            await interaction.reply({ embeds: [failureEmbed] });
+        }
+    }
 }

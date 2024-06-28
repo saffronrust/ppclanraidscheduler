@@ -1,3 +1,5 @@
+const { MessageEmbed } = require("discord.js");
+
 /**
  * This function creates a failure embed template, user just needs to input the description
  * @param {string} description The description of the failure

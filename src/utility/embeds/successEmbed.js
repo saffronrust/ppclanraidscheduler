@@ -1,3 +1,5 @@
+const { MessageEmbed } = require("discord.js");
+
 /**
  * This function creates a success embed template, user just needs to input the description
  * @param {string} description The description of the success

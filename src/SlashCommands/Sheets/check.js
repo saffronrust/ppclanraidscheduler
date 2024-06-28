@@ -1,5 +1,7 @@
-const { MessageEmbed } = require("discord.js");
 const { dayChecker } = require("../../handlers/dayChecker");
+
+const { successEmbedFunc } = require("../../utility/embeds/successEmbed");
+const { failureEmbedFunc } = require("../../utility/embeds/failureEmbed");
 
 /**
  * This function checks the sheet for an available raid timing, condition is met when 6 or more people register the same timeslot
@@ -9,7 +11,7 @@ const { dayChecker } = require("../../handlers/dayChecker");
  */
 module.exports = {
 	name: "check",
-	description: "Checks the sheet for an available raid timing, condition is met when 6 or more people register the same timeslot",
+	description: "Checks the sheet for an available raid timing",
 	userPerms: ["ADMINISTRATOR"],
 	options: null,
 	run: async(client, interaction, args) => {
@@ -74,27 +76,23 @@ module.exports = {
 		const dayOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 		const userArray = [];
-		for (let i = 0; i < resultArray.length; i++) {
 
-			// if an element of resultArray is not 0, it means there are enough people available to play
-			if (resultArray[i] != 0) {
-				// index from 2 because thats when the usernames start
-				for (let j = 2; j < resultArray[i].length; j++) {
-					// this creates an array of the available people
-					userArray.push(resultArray[i][j]);
+		if (resultArray.every(element => element == 0)) {
+			console.log("Raid timing not found")
+			const failureEmbed = failureEmbedFunc(`No suitable time for raid found`)
+			await interaction.reply({ embeds: [failureEmbed] })
+		}
+		else {
+			for (let i = 0; i < resultArray.length; i++) {
+				if (resultArray[i] != 0) {
+					for (let j = 2; j < resultArray[i].length; j++) {
+						userArray.push(resultArray[i][j]);
+					}
+					console.log("Raid timing found")
+					const successEmbed = successEmbedFunc(`Raid is set for ${dayOfWeek[i]} at ${resultArray[i][1]} with the following users:\n ${userArray.join(", ")}`)
+					await interaction.reply({ embeds: [successEmbed] })
 				}
-				const embed = new MessageEmbed().setColor("GREEN")
-				console.log("Raid timing found")
-				embed.setDescription(`Raid is set for ${dayOfWeek[i]} at ${resultArray[i][1]} with the following users:\n ${userArray.join(", ")}`);
-				return interaction.reply({ embeds: [embed] })
 			}
 		}
-
-		// if we come to here, that means all the days have been checked and no suitable time for raid has been found
-		// i.e. all the elements of resultArray are 0
-		const embed = new MessageEmbed().setColor("RED")
-		console.log("Raid timing not found")
-		embed.setDescription(`No suitable time for raid found`)
-		return interaction.reply({ embeds: [embed] })
 	}
 }

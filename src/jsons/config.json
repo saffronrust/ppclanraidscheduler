@@ -1,7 +1,0 @@
-{
-	"botToken": "ENTER_YOUR_BOT_TOKEN_HERE",
-	"spreadsheetId": "ID_OF_THE_GOOGLE_SHEET",
-	"ownerId": "ENTER_YOUR_ID_HERE",
-	"prefix": "ANY_PREFIX_OF_YOUR_CHOICE",
-	"error_logs": "ENTER_THE_ERROR_LOGS_CHANNEL_ID_HERE"
-}

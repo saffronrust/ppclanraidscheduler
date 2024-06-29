@@ -45,9 +45,10 @@ Go to command prompt, navigate to the directory you want, and type `git clone ht
 
 Type `npm install` in the same directory
 
-3. In a text editor of your choice, configure the `config.json` and `credentials.json` file
+3. In a text editor of your choice, add the `config.json` and `credentials.json` file in `src/jsons`
 ```json
 {
+	// create a new config.json file and copy paste the code here
 	"botToken": "ENTER_YOUR_BOT_TOKEN_HERE",
 	"spreadsheetId": "ID_OF_THE_GOOGLE_SHEET",
 	"ownerId": "ENTER_YOUR_ID_HERE",

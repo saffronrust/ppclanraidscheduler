@@ -76,8 +76,6 @@ Type `node .` in the main directory
 ## Future Plans
 As of now, I have no concrete plans to improve upon this bot. This was just a personal project for my friend group. However, I'm thinking of adding more functionalities and aesthetics to the bot, for example, color-coding the timings and pinging the relevant users when a raid timing has been found.
 
-Perhaps I'll deploy the bot for a month and see how it goes.
-
 ## Acknowledgements
 Huge, huge thanks to [Simpleboy353's SheetsBot](https://github.com/Simpleboy353/SheetsBot) for the foundation of this bot. I wouldn't have known how to start using the Google Sheets API without building upon his bot. Please [buy him a coffee](https://buymeacoffee.com/simpleboy353) if you liked this bot.
 
